@@ -43,6 +43,14 @@ let item;
     function drop(event) {
         $(event.currentTarget).text('')
         $(event.currentTarget).append(item)
+        console.log(item)
+        console.log(item.attr('id'))
+        $.ajax({
+            type: "get",
+            url: "https://api.stratz.com/api/v1/Hero/" + item.attr('id') + "/matchUp",
+            }).then ((matchUp) => {
+                console.log(matchUp)
+            })
     }
     $.ajax({
         type: "get",
