@@ -49,6 +49,7 @@ let item;
             type: "get",
             url: "https://api.stratz.com/api/v1/Hero/" + item.attr('id') + "/matchUp",
             }).then ((matchUp) => {
+                window.item2 = matchUp
                 console.log(matchUp)
             })
     }
@@ -64,5 +65,19 @@ let item;
     for (let i = 0; i < 5; i++) {
         $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').text(posTitle[i]).attr('droppable','true').on('dragover', false).on('drop', drop)
     }
-    console.log(radPick)
+    $('#saveDraft').on('click', () => {
+        if (localStorage.draftNum == null) {
+            localStorage.setItem('draftNum', '0')
+            ourDraft = localStorage.getItem('draftNum')
+        } else {
+            holder = localStorage.getItem('draftNum')
+            ourDraft = parseInt(holder) + 1
+            localStorage.setItem('draftNum', ourDraft)
+        }
+        let draft = []
+        for (let i = 0; i < 5; i++) {
+            draft.push($('#pick' + i).children().eq(0).attr('id'))
+        }
+        localStorage.setItem('draft' + ourDraft, draft)
+    })
 })

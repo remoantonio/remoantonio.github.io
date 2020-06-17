@@ -11,6 +11,11 @@
     justify-content: space-evenly;
     margin-top: 15px;
 }
+#pickLocation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 #lanes {
     width: 50vw;
     display: flex;
@@ -47,7 +52,7 @@
 }
 .heroes {
     width: 75px;
-    height: 50px;
+    height: 70px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
