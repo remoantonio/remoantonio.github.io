@@ -1,11 +1,11 @@
-let heroesArr = []
+// Creating a null object inside of heroesArr to match hero id with array ID
+let heroesArr = [[null]]
+let radPick ={}
 $(() => {
-
     $.ajax({
         type: "get",
         url: "https://api.opendota.com/api/heroes",
-        }
-    ).then((heroes) => {
+        }).then((heroes) => {
         heroes.forEach(element => {
             heroesArr.push(element)
     })
@@ -21,6 +21,15 @@ $(() => {
         } else if (heroesArr[i].primary_attr == 'int') {
             $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')')
         }}});
-        
-        console.log(heroesArr)
+
+    console.log(heroesArr)
+
+    $.ajax({
+        type: "get",
+        url: "https://api.stratz.com/api/v1/Hero/1/matchUp",
+        }).then ((matchUp) => {
+            radPick.first = matchUp
+        })
+    
+    console.log(radPick)
 })
