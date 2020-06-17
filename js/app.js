@@ -20,8 +20,7 @@ $(() => {
             $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')')
         } else if (heroesArr[i].primary_attr == 'int') {
             $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')')
-        }
-    }
-    });
+        }}});
+        
         console.log(heroesArr)
 })
