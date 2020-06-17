@@ -27,15 +27,23 @@ $(() => {
     for (let i = 0; i < heroesArr.length; i++) {
         let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + heroesArr[i].name + '.png'
         if (heroesArr[i].primary_attr == 'str') {
-            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').attr('draggable', 'true')
+            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
         } else if (heroesArr[i].primary_attr == 'agi') {
-            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').attr('draggable', 'true')
+            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
         } else if (heroesArr[i].primary_attr == 'int') {
-            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true')
+            $('<div>').attr('id', heroesArr[i].id).addClass('heroes').addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
         }}});
 
     console.log(heroesArr)
-
+let item;
+    function pickUp(event) {
+        item = $(event.currentTarget)
+        return item
+    }
+    function drop(event) {
+        $(event.currentTarget).text('')
+        $(event.currentTarget).append(item)
+    }
     $.ajax({
         type: "get",
         url: "https://api.stratz.com/api/v1/Hero/1/matchUp",
@@ -46,10 +54,7 @@ $(() => {
         $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i])
     }
     for (let i = 0; i < 5; i++) {
-        $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').text(posTitle[i]).attr('droppable','true').on('dragover', false).on('drop', (event) => {
-            $('#pick' + i).text('')
-            $('#pick' + i).append(event.currentTarget.id)
-        })
+        $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').text(posTitle[i]).attr('droppable','true').on('dragover', false).on('drop', drop)
     }
     console.log(radPick)
 })
