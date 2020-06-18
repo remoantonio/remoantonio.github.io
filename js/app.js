@@ -36,10 +36,17 @@ $(() => {
 
     console.log(heroesArr)
 let item;
+// synergy function
+function synergy() {
+    for (let i = 0; i < radPick.pick0.advantage[0].with.length; i++) {
+        $('#' + radPick.pick0.advantage[0].with[i].heroId2).text(radPick.pick0.advantage[0].with[i].synergy)
+    }
+    // $('#' + radPick.pick0.advantage[0].with[0].heroId2).text(radPick.pick0.advantage[0].with[0].synergy)
+}
 // function sort needs work
 function sorting(location) {
     // let holder = []
-    console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
+    // console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
     let holder = $('#' + location[0] + ' > div').toArray().sort(function (a, b) { return a.id - b.id})
     holder.forEach(element => {
         $('#' + location[0]).append(element)
@@ -56,15 +63,10 @@ function sorting(location) {
             $(event.currentTarget).append(item)
         } else {
             // console.log($(event.currentTarget).children().eq(0).attr('class'))
-            // let location = 'str'
             let location = ($(event.currentTarget).children().eq(0).attr('class')).split(' ')
             // console.log(location)
             $(event.currentTarget).children().eq(0).detach().appendTo($('#' + location[0]))
-            // $(event.currentTarget).children().eq(0).detach().appendTo($('#str'))
             $(event.currentTarget).append(item)
-            // sorting needs work
-            // $('#' + location[0]).children().sort()
-            // console.log($('#' + location[0]).children().sort())
             sorting(location)
         }
         // console.log(item)
@@ -75,7 +77,9 @@ function sorting(location) {
             }).then ((matchUp) => {
                 radPick[($(event.currentTarget).attr('id'))] = matchUp
                 // console.log($(event.currentTarget).attr('id'))
-                // console.log(radPick)
+                console.log(radPick)
+                // Working on calculating synergy with line-up
+                synergy()
             })
     }
     for (let i = 0; i < 3; i++) {
@@ -84,7 +88,6 @@ function sorting(location) {
     for (let i = 0; i < 5; i++) {
         $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').attr('droppable','true').on('dragover', false).on('drop', drop)
         // removed background text from pick locations
-        // $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').text(posTitle[i]).attr('droppable','true').on('dragover', false).on('drop', drop)
     }
 
     $('#saveDraft').on('click', () => {
