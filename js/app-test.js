@@ -37,20 +37,20 @@ $(() => {
     console.log(heroesArr)
 let item;
 // function sort needs work
-function sorting(location) {
-    // let holder = []
-    console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
-    let holder = $('#' + location[0] + ' > div').toArray().sort(function (a, b) { return a.id - b.id})
-    holder.forEach(element => {
-        $('#' + location[0]).append(element)
-    });
-}
+    function sorting(location) {
+        // let holder = []
+        console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
+        let holder = $('#' + location[0] + ' > div').toArray().sort(function (a, b) { return a.id - b.id})
+        holder.forEach(element => {
+            $('#' + location[0]).append(element)
+        });
+    }
     function pickUp(event) {
         item = $(event.currentTarget)
         return item
     }
     function drop(event) {
-        // introduced logic to return  heroes if replaced by another hero. Still need to order.
+        // introduced logic to return  heroes if replaced by another hero. Order has been fixed.
         // console.log($(event.currentTarget).children().length)
         if ($(event.currentTarget).children().length == 0) {
             $(event.currentTarget).append(item)
