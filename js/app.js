@@ -36,14 +36,13 @@ $(() => {
 
     console.log(heroesArr)
 let item;
-// synergy function
+// synergy function /////////////////////       FIXED
 function synergy() {
-    for (let i = 0; i < radPick.pick0.advantage[0].with.length; i++) {
-        $('#' + radPick.pick0.advantage[0].with[i].heroId2).text(radPick.pick0.advantage[0].with[i].synergy)
+    for (let i = 0; i < radPick[currentPick].advantage[0].with.length; i++) {
+        $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(radPick[currentPick].advantage[0].with[i].synergy)
     }
-    // $('#' + radPick.pick0.advantage[0].with[0].heroId2).text(radPick.pick0.advantage[0].with[0].synergy)
 }
-// function sort needs work
+// sort function ///////////////////////        FIXED
 function sorting(location) {
     // let holder = []
     // console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
@@ -57,7 +56,7 @@ function sorting(location) {
         return item
     }
     function drop(event) {
-        // introduced logic to return  heroes if replaced by another hero. Still need to order.
+        // introduced logic to return  heroes if replaced by another hero.
         // console.log($(event.currentTarget).children().length)
         if ($(event.currentTarget).children().length == 0) {
             $(event.currentTarget).append(item)
@@ -77,8 +76,10 @@ function sorting(location) {
             }).then ((matchUp) => {
                 radPick[($(event.currentTarget).attr('id'))] = matchUp
                 // console.log($(event.currentTarget).attr('id'))
-                console.log(radPick)
+                // console.log(radPick)
                 // Working on calculating synergy with line-up
+                // console.log(($(event.currentTarget).attr('id')))
+                window.currentPick = ($(event.currentTarget).attr('id'))
                 synergy()
             })
     }
