@@ -7,8 +7,9 @@ let lanes = [
     'offlane'
 ]
 class makeHeroSyn {
-    constructor (heroID){
+    constructor (heroID, name){
     this.heroID = heroID
+    this.name = name
     }
     pick0 = null;
     pick1 = null;
@@ -17,9 +18,7 @@ class makeHeroSyn {
     pick4 = null;
     synTotal = null;
     sumSyn() {
-        for (let i = 0; i < 5; i++) {
-            this.synTotal = synTotal + ('pick' + i)
-        }
+            this.synTotal = this.pick0 + this.pick1 + this.pick2 + this.pick3 + this.pick4
     }
 }
 let synArr = [[null]]
@@ -31,7 +30,7 @@ $(() => {
         heroes.forEach(element => {
             heroesArr.push(element)
                 // Generating Synergy Array
-            synArr.push(new makeHeroSyn(element.id))
+            synArr.push(new makeHeroSyn(element.id, element.localized_name))
     })
     $('<div>').attr('id', 'str').addClass('attribute').appendTo($('#container')).css('background-color', 'red')
     $('<div>').attr('id', 'agi').addClass('attribute').appendTo($('#container')).css('background-color', 'green')
@@ -51,7 +50,14 @@ let item;
 // synergy function /////////////////////       FIXED
 function synergy() {
     for (let i = 0; i < radPick[currentPick].advantage[0].with.length; i++) {
-        $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(radPick[currentPick].advantage[0].with[i].synergy)
+        // working on attaching synergy array values
+        for (let j = 0; j < synArr.length; j++) {
+            if (synArr[j].heroID == radPick[currentPick].advantage[0].with[i].heroId2) {
+                synArr[j][currentPick] = radPick[currentPick].advantage[0].with[i].synergy
+                synArr[j].sumSyn()
+            }
+        }
+        // $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(radPick[currentPick].advantage[0].with[i].synergy)
     }
 }
 // sort function ///////////////////////        FIXED
