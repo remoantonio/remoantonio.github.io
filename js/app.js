@@ -29,7 +29,7 @@ $(() => {
         }).then((heroes) => {
         heroes.forEach(element => {
             heroesArr.push(element)
-                // Generating Synergy Array
+                // Generating Synergy Array ////////////////////// Complete
             synArr.push(new makeHeroSyn(element.id, element.localized_name))
     })
     $('<div>').attr('id', 'str').addClass('attribute').appendTo($('#container')).css('background-color', 'red')
@@ -47,22 +47,21 @@ $(() => {
 
     console.log(heroesArr)
 let item;
-// synergy function /////////////////////       FIXED
+// synergy function attached to corresponding heroes and sum /////////////////////       FIXED
+// It seems as though brewmaster and omniknight are left out of the synergy calculations from the API
 function synergy() {
     for (let i = 0; i < radPick[currentPick].advantage[0].with.length; i++) {
-        // working on attaching synergy array values
         for (let j = 0; j < synArr.length; j++) {
             if (synArr[j].heroID == radPick[currentPick].advantage[0].with[i].heroId2) {
                 synArr[j][currentPick] = radPick[currentPick].advantage[0].with[i].synergy
                 synArr[j].sumSyn()
+                $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(synArr[j].synTotal)
             }
         }
-        // $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(radPick[currentPick].advantage[0].with[i].synergy)
     }
 }
 // sort function ///////////////////////        FIXED
 function sorting(location) {
-    // let holder = []
     // console.log($('#' + location[0] + ' > div').toArray().sort(function(a, b) { return a.id - b.id}))
     let holder = $('#' + location[0] + ' > div').toArray().sort(function (a, b) { return a.id - b.id})
     holder.forEach(element => {
