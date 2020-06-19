@@ -20,7 +20,7 @@ Lanes:
 3: Off
 
 
-Planning on creating an array or object to house the addition and subtraction of synergy between the pick slots. Leaning toward array.
+Finished - Planning on creating an array or object to house the addition and subtraction of synergy between the pick slots. Leaning toward array.
 
 Ex:
 

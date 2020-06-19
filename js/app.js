@@ -1,6 +1,7 @@
 // Creating a null object inside of heroesArr to match hero id with array ID
 let heroesArr = [[null]]
 let radPick ={}
+let pickArr = []
 let lanes = [
     'safelane',
     'midlane',
@@ -17,8 +18,25 @@ class makeHeroSyn {
     pick3 = null;
     pick4 = null;
     synTotal = null;
+    red = 255;
+    green = 255;
+    blue = 255;
+    color = null;
     sumSyn() {
-            this.synTotal = this.pick0 + this.pick1 + this.pick2 + this.pick3 + this.pick4
+            this.synTotal = Math.round((this.pick0 + this.pick1 + this.pick2 + this.pick3 + this.pick4) * 100) / 100
+    }
+    setColor() {
+        if (this.synTotal >= 0) {
+            this.red =  255 - (Math.abs(this.synTotal) * 50)
+            this.blue =  255 - (Math.abs(this.synTotal) * 50)
+            this.green =  255
+            this.color = `rgb(${this.red}, ${this.green}, ${this.blue})`
+        } else {
+            this.green =  255 - (Math.abs(this.synTotal) * 50)
+            this.blue =  255 - (Math.abs(this.synTotal) * 50)
+            this.red =  255
+            this.color = `rgb(${this.red}, ${this.green}, ${this.blue})`
+        }
     }
 }
 let synArr = [[null]]
@@ -32,9 +50,9 @@ $(() => {
                 // Generating Synergy Array ////////////////////// Complete
             synArr.push(new makeHeroSyn(element.id, element.localized_name))
     })
-    $('<div>').attr('id', 'str').addClass('attribute').appendTo($('#container')).css('background-color', 'red')
-    $('<div>').attr('id', 'agi').addClass('attribute').appendTo($('#container')).css('background-color', 'green')
-    $('<div>').attr('id', 'int').addClass('attribute').appendTo($('#container')).css('background-color', 'blue')
+    $('<div>').attr('id', 'str').addClass('attribute').appendTo($('#container')).css('background-color', 'red').attr('droppable','true').on('dragover', false).on('drop', dropHome)
+    $('<div>').attr('id', 'agi').addClass('attribute').appendTo($('#container')).css('background-color', 'green').attr('droppable','true').on('dragover', false).on('drop', dropHome)
+    $('<div>').attr('id', 'int').addClass('attribute').appendTo($('#container')).css('background-color', 'blue').attr('droppable','true').on('dragover', false).on('drop', dropHome)
     for (let i = 0; i < heroesArr.length; i++) {
         let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + heroesArr[i].name + '.png'
         if (heroesArr[i].primary_attr == 'str') {
@@ -55,7 +73,8 @@ function synergy() {
             if (synArr[j].heroID == radPick[currentPick].advantage[0].with[i].heroId2) {
                 synArr[j][currentPick] = radPick[currentPick].advantage[0].with[i].synergy
                 synArr[j].sumSyn()
-                $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(synArr[j].synTotal)
+                synArr[j].setColor()
+                $('#' + radPick[currentPick].advantage[0].with[i].heroId2).text(synArr[j].synTotal).css('background-color', synArr[j].color)
             }
         }
     }
@@ -71,6 +90,16 @@ function sorting(location) {
     function pickUp(event) {
         item = $(event.currentTarget)
         return item
+    }
+    function dropHome(event) {
+            let location = ($(event.currentTarget).children().eq(0).attr('class')).split(' ')
+            let goingTo = (item.attr('class')).split(' ')
+            // console.log(location)
+            console.log($(event.target))
+            if ('#' + location[0] == "#" + goingTo[0]) {
+                $(event.currentTarget).append(item)
+                sorting(location)
+            }
     }
     function drop(event) {
         // introduced logic to return  heroes if replaced by another hero.
@@ -105,6 +134,7 @@ function sorting(location) {
     }
     for (let i = 0; i < 5; i++) {
         $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').attr('droppable','true').on('dragover', false).on('drop', drop)
+        pickArr.push('#pick' + i)
         // removed background text from pick locations
     }
 
