@@ -1,18 +1,28 @@
 // Creating a null object inside of heroesArr to match hero id with array ID
 let heroesArr = [[null]]
 let radPick ={}
-let posTitle = [
-    'core',
-    'support',
-    'core',
-    'core',
-    'support'
-]
 let lanes = [
     'safelane',
     'midlane',
     'offlane'
 ]
+class makeHeroSyn {
+    constructor (heroID){
+    this.heroID = heroID
+    }
+    pick0 = null;
+    pick1 = null;
+    pick2 = null;
+    pick3 = null;
+    pick4 = null;
+    synTotal = null;
+    sumSyn() {
+        for (let i = 0; i < 5; i++) {
+            this.synTotal = synTotal + ('pick' + i)
+        }
+    }
+}
+let synArr = [[null]]
 $(() => {
     $.ajax({
         type: "get",
@@ -20,6 +30,8 @@ $(() => {
         }).then((heroes) => {
         heroes.forEach(element => {
             heroesArr.push(element)
+                // Generating Synergy Array
+            synArr.push(new makeHeroSyn(element.id))
     })
     $('<div>').attr('id', 'str').addClass('attribute').appendTo($('#container')).css('background-color', 'red')
     $('<div>').attr('id', 'agi').addClass('attribute').appendTo($('#container')).css('background-color', 'green')
