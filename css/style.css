@@ -32,6 +32,12 @@
 #offlane {
     width: 19;
 }
+#interaction {
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 .attribute {
     width: 30vw;
     display: flex;

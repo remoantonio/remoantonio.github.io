@@ -41,6 +41,11 @@ class makeHeroSyn {
 }
 let synArr = [[null]]
 $(() => {
+    function runPage() {
+        synArr = [[null]]
+    heroesArr = [[null]]
+    radPick = {}
+    pickArr = []
     $.ajax({
         type: "get",
         url: "https://api.opendota.com/api/heroes",
@@ -58,16 +63,20 @@ $(() => {
         if (heroesArr[i].primary_attr == 'str') {
             $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp).attr('heroID', heroesArr[i].id)
         } else if (heroesArr[i].primary_attr == 'agi') {
-            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
+            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp).attr('heroID', heroesArr[i].id)
         } else if (heroesArr[i].primary_attr == 'int') {
-            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
-        //     $('<div>').attr('id', heroesArr[i].id).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
-        // } else if (heroesArr[i].primary_attr == 'agi') {
-        //     $('<div>').attr('id', heroesArr[i].id).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
-        // } else if (heroesArr[i].primary_attr == 'int') {
-        //     $('<div>').attr('id', heroesArr[i].id).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp)
+            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp).attr('heroID', heroesArr[i].id)
         }}});
-
+        for (let i = 0; i < 3; i++) {
+            $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i])
+        }
+        for (let i = 0; i < 5; i++) {
+            $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').attr('droppable','true').on('dragover', false).on('drop', drop)
+            pickArr.push('pick' + i)
+            // removed background text from pick locations
+        }
+    }
+    runPage()
     console.log(heroesArr)
 let item;
 // synergy function attached to corresponding heroes and sum /////////////////////       FIXED
@@ -75,9 +84,9 @@ let item;
 function synergy() {
     for (let i = 0; i < pickArr.length; i++) {
         if ($('#' + pickArr[i]).children().length == 0) {
-            console.log('yo')
+            // console.log('yo')
             radPick[pickArr[i]] = null
-            console.log(radPick)
+            // console.log(radPick)
             for (let k = 0; k < synArr.length; k++) {
                 synArr[k][pickArr[i]] = 0
             }
@@ -92,7 +101,8 @@ function synergy() {
                             synArr[j][pickArr[k]] = radPick[pickArr[k]].advantage[0].with[i].synergy
                             synArr[j].sumSyn()
                             synArr[j].setColor()
-                            $('#' + radPick[pickArr[k]].advantage[0].with[i].heroId2).text(synArr[j].synTotal).css('background-color', synArr[j].color)
+                            $('#' + j).text(synArr[j].synTotal).css('background-color', synArr[j].color)
+                            // $('#' + radPick[pickArr[k]].advantage[0].with[i].heroId2).text(synArr[j].synTotal).css('background-color', synArr[j].color)
                         }
                     }
                 }
@@ -159,15 +169,12 @@ function sorting(location) {
                 synergy()
             })
     }
-    for (let i = 0; i < 3; i++) {
-        $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i])
-    }
-    for (let i = 0; i < 5; i++) {
-        $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').attr('droppable','true').on('dragover', false).on('drop', drop)
-        pickArr.push('pick' + i)
-        // removed background text from pick locations
-    }
-
+    $('#resetPage').on('click', () => {
+        $('#container').children().remove()
+        $('#pickLocation').children().eq(0).children().eq(0).children().remove()
+        $('#pickLocation').children().eq(0).children().eq(1).children().remove()
+        runPage()
+    })
     $('#saveDraft').on('click', () => {
         if (localStorage.draftNum == null) {
             localStorage.setItem('draftNum', '0')
@@ -182,5 +189,8 @@ function sorting(location) {
             draft.push($('#pick' + i).children().eq(0).attr('id'))
         }
         localStorage.setItem('draft' + ourDraft, draft)
+    })
+    $('#clearHistory').on('click', () => {
+        localStorage.clear()
     })
 })
