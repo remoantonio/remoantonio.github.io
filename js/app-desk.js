@@ -68,7 +68,7 @@ $(() => {
             $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').attr('draggable', 'true').on('mousedown', pickUp).attr('heroID', heroesArr[i].id)
         }}});
         for (let i = 0; i < 3; i++) {
-            $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i])
+            $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i]).hide()
         }
         for (let i = 0; i < 5; i++) {
             $('<div>').attr('id', 'pick' + i).appendTo($('#picks')).addClass('picks').attr('droppable','true').on('dragover', false).on('drop', drop)
