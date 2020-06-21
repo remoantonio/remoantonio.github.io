@@ -1,3 +1,6 @@
+#buttons {
+    display: none;
+}
 #container {
     display: flex;
     flex-direction: row;
@@ -33,10 +36,10 @@
     width: 19;
 }
 #interaction {
-    height: 10vh;
+    height: 12vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 .attribute {
     width: 30vw;
@@ -65,4 +68,21 @@
     border-radius: 50%;
     text-align: center;
     background-color: rgb(255, 255, 255);
+}
+@media only screen and (max-width: 600px) {
+    body {
+    background-color: yellow;
+    }
+    #buttons {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #str, #agi, #int {
+        width: 100vw;
+    }
+    .str, .agi, .int {
+        width: 70px;
+        height: 35px;
+        margin: 2px;
+    }
 }
