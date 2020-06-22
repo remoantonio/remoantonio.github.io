@@ -1,3 +1,7 @@
+body {
+    background-image: url("../img/paper.jpg");
+    background-size: 100vw;
+}
 #buttons {
     display: none;
 }
@@ -6,6 +10,49 @@
     flex-direction: row;
     width: 100vw;
     justify-content: space-evenly;
+}
+#containerHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100vw;
+}
+#headTitle {
+    font-size: 5vw;
+}
+#top {
+    background-image: url("../img/banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+}
+.header {
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+}
+#strHead {
+    background-image: url('../img/Strength_Tag.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#agiHead {
+    background-image: url('../img/Agility_Tag.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#intHead {
+    background-image: url('../img/Intellect_Tag.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 #picks {
     width: 50vw;
@@ -43,6 +90,7 @@
     text-align: center;
 }
 #menu {
+    width: 50vw;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -58,15 +106,19 @@
 }
 .picks {
     width: 75px;
-    height: 50px;
-    border: 2px solid black;
-    background-color: rgb(122, 19, 19);
+    height: 80px;
+    background-image: url("../img/DivButtonBg.png");
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+#str, #agi, #int {
+    background-image: url("../img/DivButtonBg.png");
+    border-radius: 10px;
+}
 .str, .agi, .int, .draftPick {
-    width: 75px;
+    width: 80px;
     height: 70px;
     background-position: center;
     background-repeat: no-repeat;
@@ -74,6 +126,8 @@
     border-radius: 50%;
     text-align: center;
     background-color: rgb(255, 255, 255);
+    margin: 5px;
+    margin-top: 10px;
 }
 #draftBox {
     display: flex;
@@ -115,6 +169,9 @@ button {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+.draftPick {
+    margin: auto;
+}
 @media only screen and (max-width: 600px) {
     #buttons {
         display: flex;
@@ -147,13 +204,13 @@ button {
         height: 15vh;
     }
     .drafts {
-        width: 325px;
+        width: 80vw;
     }
     .draftPickNum {
-        width: 50px;
+        width: 14vw;
     }
     .draftPick {
-        width: 50px;
+        width: 13vw;
         height: 25px;
     }
 }

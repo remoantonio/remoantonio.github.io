@@ -42,10 +42,14 @@ class makeHeroSyn {
 let synArr = [[null]]
 $(() => {
         // Top Page Menu
-        $('#headTitle').text('hello')
+        $('#headTitle').text('Dota 2 Picker')
         $('<div>').attr('id', 'assistant').on('click', assistant).appendTo($('#menu')).text('assistant')
         $('<div>').attr('id', 'home').on('click', home).appendTo($('#menu')).text('home')
         $('<div>').attr('id', 'drafts').on('click', drafts).appendTo($('#menu')).text('draft')
+    // Container Page Header
+    $('<div>').addClass('header').appendTo($('#containerHeader')).attr('id', 'strHead')
+    $('<div>').addClass('header').appendTo($('#containerHeader')).attr('id', 'agiHead')
+    $('<div>').addClass('header').appendTo($('#containerHeader')).attr('id', 'intHead')
     function runPage() {
         synArr = [[null]]
     heroesArr = [[null]]
@@ -179,13 +183,17 @@ function sorting(location) {
     // Assistant Page
     function assistant() {
         $('#container').show()
+        $('#containerHeader').show()
         $('#pickLocation').show()
         $('#homePage').hide()
         $('#draftBox').hide()
         $('#buttons').show()
+        $('#agiHead').hide()
+        $('#intHead').hide()
     }
     // Home Page
     function home() {
+        $('#containerHeader').hide()
         $('#container').hide()
         $('#pickLocation').hide()
         $('#homePage').show()
@@ -194,6 +202,7 @@ function sorting(location) {
     }
     // Drafts Page
     function drafts() {
+        $('#containerHeader').hide()
         $('#container').hide()
         $('#pickLocation').hide()
         $('#homePage').hide()
@@ -263,16 +272,25 @@ function sorting(location) {
         }
     })
     $('#strDisplay').on('click', () => {
+        $('#strHead').show()
+        $('#agiHead').hide()
+        $('#intHead').hide()
         $('#str').show()
         $('#agi').hide()
         $('#int').hide()
     })
     $('#agiDisplay').on('click', () => {
+        $('#strHead').hide()
+        $('#agiHead').show()
+        $('#intHead').hide()
         $('#agi').show()
         $('#str').hide()
         $('#int').hide()
     })
     $('#intDisplay').on('click', () => {
+        $('#strHead').hide()
+        $('#agiHead').hide()
+        $('#intHead').show()
         $('#int').show()
         $('#str').hide()
         $('#agi').hide()
