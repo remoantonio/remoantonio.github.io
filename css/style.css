@@ -150,10 +150,10 @@ button {
         width: 80vw;
     }
     .draftPickNum {
-        width: 14vw;
+        width: 50px;
     }
     .draftPick {
-        /* width: 13vw; */
+        width: 50px;
         height: 25px;
     }
 }
