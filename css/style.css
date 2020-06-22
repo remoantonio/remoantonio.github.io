@@ -18,7 +18,7 @@ body {
     width: 100vw;
 }
 #headTitle {
-    font-size: 5vw;
+    font-size: 4.5vw;
 }
 #top {
     background-image: url("../img/banner.png");
@@ -173,6 +173,9 @@ button {
     margin: auto;
 }
 @media only screen and (max-width: 600px) {
+    #pickLocation {
+        width: 100vw;
+    }
     #buttons {
         display: flex;
         justify-content: space-evenly;
@@ -196,12 +199,14 @@ button {
         /* font-size: 0; */
     }
     #picks {
-        height: 220px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 70vw;
     }
     #interaction {
         height: 15vh;
+        width: 25vw;
     }
     .drafts {
         width: 80vw;
@@ -212,5 +217,10 @@ button {
     .draftPick {
         width: 13vw;
         height: 25px;
+    }
+    .picks {
+        border: 2px solid black;
+        height: 10vh;
+        margin-top: 5px;
     }
 }
