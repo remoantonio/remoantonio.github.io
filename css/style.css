@@ -146,11 +146,14 @@ button {
     #interaction {
         height: 15vh;
     }
+    .drafts {
+        width: 80vw;
+    }
     .draftPickNum {
-        width: 40px;
+        width: 12vw;
     }
     .draftPick {
-        width: 40px;
+        width: 13vw;
         height: 25px;
     }
 }
