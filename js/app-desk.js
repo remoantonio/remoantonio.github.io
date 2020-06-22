@@ -41,6 +41,11 @@ class makeHeroSyn {
 }
 let synArr = [[null]]
 $(() => {
+    // Top Page Menu
+    $('#headTitle').text('hello')
+    $('<div>').attr('id', 'assistant').on('click', assistant).appendTo($('#menu')).text('assistant')
+    $('<div>').attr('id', 'home').on('click', home).appendTo($('#menu')).text('home')
+    $('<div>').attr('id', 'drafts').on('click', drafts).appendTo($('#menu')).text('draft')
     function runPage() {
         synArr = [[null]]
     heroesArr = [[null]]
@@ -76,6 +81,7 @@ $(() => {
             // removed background text from pick locations
         }
     }
+    home()
     runPage()
     console.log(heroesArr)
 let item;
@@ -169,6 +175,46 @@ function sorting(location) {
                 synergy()
             })
     }
+    // Assistant Page
+    function assistant() {
+        $('#container').show()
+        $('#pickLocation').show()
+        $('#home').hide()
+        $('#draftBox').hide()
+    }
+    // Home Page
+    function home() {
+        $('#container').hide()
+        $('#pickLocation').hide()
+        $('#home').show()
+        $('#draftBox').hide()
+    }
+    // Drafts Page
+    function drafts() {
+        $('#container').hide()
+        $('#pickLocation').hide()
+        $('#home').show()
+        $('#draftBox').hide()
+        showDrafts()
+    }
+    // Show Drafts Function
+    function showDrafts() {
+        for (let i = 0; i < (localStorage.length - 1); i++) {
+            $('<div>').attr('id', 'draftBox' + i).appendTo($('#draftBox'))
+            // console.log('draftBox' + i)
+            for (let j = 0; j < 5; j++) {
+            // for (let j = 0; j < localStorage[`draft ${i}`].split(',').length; j++) {
+                if (localStorage['draft' + i]) {
+                    let select = localStorage['draft' + i].split(',')[j]
+                    // console.log(j)
+                    console.log(select)
+                    // console.log(localStorage['draft' + i])
+                    let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + select + '.png'
+                    $('<div>').addClass('draftPick').css('background-image', 'url(' + img + ')').appendTo($('#draftBox' + i))
+                }
+            }
+        }
+    }
     $('#resetPage').on('click', () => {
         $('#container').children().remove()
         $('#pickLocation').children().eq(0).children().eq(0).children().remove()
@@ -191,6 +237,11 @@ function sorting(location) {
         localStorage.setItem('draft' + ourDraft, draft)
     })
     $('#clearHistory').on('click', () => {
-        localStorage.clear()
+        let sure = prompt('Are you sure you would like to delete you draft history? It cannot be recovered.', 'If you are sure type "delete".')
+        if (sure == 'delete') {
+            localStorage.clear()
+        } else {
+            alert('Data has not been deleted.')
+        }
     })
 })
