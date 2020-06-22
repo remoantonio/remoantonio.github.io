@@ -2,7 +2,7 @@
   "name": "remo-dota",
   "version": "1.0.0",
   "description": "A Dota Synergy Draft Assistant",
-  "main": "index.html",
+  "main": "js/app-desk.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
