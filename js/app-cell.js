@@ -41,6 +41,11 @@ class makeHeroSyn {
 }
 let synArr = [[null]]
 $(() => {
+        // Top Page Menu
+        $('#headTitle').text('hello')
+        $('<div>').attr('id', 'assistant').on('click', assistant).appendTo($('#menu')).text('assistant')
+        $('<div>').attr('id', 'home').on('click', home).appendTo($('#menu')).text('home')
+        $('<div>').attr('id', 'drafts').on('click', drafts).appendTo($('#menu')).text('draft')
     function runPage() {
         synArr = [[null]]
     heroesArr = [[null]]
@@ -76,6 +81,7 @@ $(() => {
             // removed background text from pick locations
         }
     }
+    home()
     runPage()
     console.log(heroesArr)
 let item;
@@ -170,6 +176,62 @@ function sorting(location) {
                 synergy()
             })
     }
+    // Assistant Page
+    function assistant() {
+        $('#container').show()
+        $('#pickLocation').show()
+        $('#homePage').hide()
+        $('#draftBox').hide()
+        $('#buttons').show()
+    }
+    // Home Page
+    function home() {
+        $('#container').hide()
+        $('#pickLocation').hide()
+        $('#homePage').show()
+        $('#draftBox').hide()
+        $('#buttons').hide()
+    }
+    // Drafts Page
+    function drafts() {
+        $('#container').hide()
+        $('#pickLocation').hide()
+        $('#homePage').hide()
+        $('#draftBox').show()
+        $('#buttons').hide()
+    }
+    // Show Drafts Function and page creation
+    $('<div>').attr('id', 'draftBoxPicks').appendTo($('#draftBox'))
+    $('<div>').attr('id', 'draftBoxButtons').appendTo($('#draftBox'))
+    $('<button>').attr('id', 'showDrafts').text('Show History').appendTo($('#draftBoxButtons')).on('click', showDrafts)
+    $('<button>').attr('id', 'clearLocale').text('Clear History').appendTo($('#draftBoxButtons')).on('click', () => {
+        let sure = prompt('Are you sure you would like to delete you draft history? It cannot be recovered.', 'If you are sure type "delete".')
+        if (sure == 'delete') {
+            localStorage.clear()
+            $('#draftBoxPicks').children().remove()
+        } else {
+            alert('Data has not been deleted.')
+        }
+    })
+    function showDrafts() {
+        $('#draftBoxPicks').children().remove()
+        for (let i = 0; i < (localStorage.length - 1); i++) {
+            $('<div>').attr('id', 'draftBox' + i).addClass('drafts').appendTo($('#draftBoxPicks'))
+            $('<div>').text('Draft ' + i).appendTo('#draftBox' + i).addClass('draftPickNum')
+            // console.log('draftBox' + i)
+            // for (let j = 0; j < 5; j++) {
+            for (let j = 0; j < localStorage['draft' + i].split(',').length; j++) {
+                if (localStorage['draft' + i].split(',')[j] != "") {
+                    console.log(j)
+                    let select = heroesArr[localStorage['draft' + i].split(',')[j]].name
+                    console.log(select)
+                    // console.log(localStorage['draft' + i])
+                    let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + select + '.png'
+                    $('<div>').addClass('draftPick').css('background-image', 'url(' + img + ')').appendTo($('#draftBox' + i))
+                }
+            }
+        }
+    }
     $('#resetPage').on('click', () => {
         $('#container').children().remove()
         $('#pickLocation').children().eq(0).children().eq(0).children().remove()
@@ -192,7 +254,13 @@ function sorting(location) {
         localStorage.setItem('draft' + ourDraft, draft)
     })
     $('#clearHistory').on('click', () => {
-        localStorage.clear()
+        let sure = prompt('Are you sure you would like to delete you draft history? It cannot be recovered.', 'If you are sure type "delete".')
+        if (sure == 'delete') {
+            localStorage.clear()
+            $('#draftBoxPicks').children().remove()
+        } else {
+            alert('Data has not been deleted.')
+        }
     })
     $('#strDisplay').on('click', () => {
         $('#str').show()
