@@ -36,10 +36,8 @@
     width: 19;
 }
 #interaction {
-    height: 12vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 #headTitle {
     text-align: center;
@@ -76,6 +74,46 @@
     border-radius: 50%;
     text-align: center;
     background-color: rgb(255, 255, 255);
+}
+#draftBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#draftBoxPicks {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+#draftBoxButtons {
+    display: flex;
+    flex-direction: column;
+}
+.drafts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.draftPickNum {
+    width: 4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#homePage {
+    display: flex;
+    justify-content: center;
+}
+#about {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+button {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 @media only screen and (max-width: 600px) {
     body {

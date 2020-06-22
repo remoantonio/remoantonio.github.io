@@ -179,34 +179,47 @@ function sorting(location) {
     function assistant() {
         $('#container').show()
         $('#pickLocation').show()
-        $('#home').hide()
+        $('#homePage').hide()
         $('#draftBox').hide()
     }
     // Home Page
     function home() {
         $('#container').hide()
         $('#pickLocation').hide()
-        $('#home').show()
+        $('#homePage').show()
         $('#draftBox').hide()
     }
     // Drafts Page
     function drafts() {
         $('#container').hide()
         $('#pickLocation').hide()
-        $('#home').show()
-        $('#draftBox').hide()
-        showDrafts()
+        $('#homePage').hide()
+        $('#draftBox').show()
     }
-    // Show Drafts Function
+    // Show Drafts Function and page creation
+    $('<div>').attr('id', 'draftBoxPicks').appendTo($('#draftBox'))
+    $('<div>').attr('id', 'draftBoxButtons').appendTo($('#draftBox'))
+    $('<button>').attr('id', 'showDrafts').text('Show History').appendTo($('#draftBoxButtons')).on('click', showDrafts)
+    $('<button>').attr('id', 'clearLocale').text('Clear History').appendTo($('#draftBoxButtons')).on('click', () => {
+        let sure = prompt('Are you sure you would like to delete you draft history? It cannot be recovered.', 'If you are sure type "delete".')
+        if (sure == 'delete') {
+            localStorage.clear()
+            $('#draftBoxPicks').children().remove()
+        } else {
+            alert('Data has not been deleted.')
+        }
+    })
     function showDrafts() {
+        $('#draftBoxPicks').children().remove()
         for (let i = 0; i < (localStorage.length - 1); i++) {
-            $('<div>').attr('id', 'draftBox' + i).appendTo($('#draftBox'))
+            $('<div>').attr('id', 'draftBox' + i).addClass('drafts').appendTo($('#draftBoxPicks'))
+            $('<div>').text('Draft ' + i).appendTo('#draftBox' + i).addClass('draftPickNum')
             // console.log('draftBox' + i)
-            for (let j = 0; j < 5; j++) {
-            // for (let j = 0; j < localStorage[`draft ${i}`].split(',').length; j++) {
-                if (localStorage['draft' + i]) {
-                    let select = localStorage['draft' + i].split(',')[j]
-                    // console.log(j)
+            // for (let j = 0; j < 5; j++) {
+            for (let j = 0; j < localStorage['draft' + i].split(',').length; j++) {
+                if (localStorage['draft' + i].split(',')[j] != "") {
+                    console.log(j)
+                    let select = heroesArr[localStorage['draft' + i].split(',')[j]].name
                     console.log(select)
                     // console.log(localStorage['draft' + i])
                     let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + select + '.png'
@@ -240,6 +253,7 @@ function sorting(location) {
         let sure = prompt('Are you sure you would like to delete you draft history? It cannot be recovered.', 'If you are sure type "delete".')
         if (sure == 'delete') {
             localStorage.clear()
+            $('#draftBoxPicks').children().remove()
         } else {
             alert('Data has not been deleted.')
         }
