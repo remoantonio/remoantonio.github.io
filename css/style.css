@@ -11,6 +11,27 @@ body {
     width: 100vw;
     justify-content: space-evenly;
 }
+#assistant {
+    width: 10vw;
+    background-image: url("../img/assistant_tag.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#home {
+    width: 10vw;
+    background-image: url("../img/home.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#drafts {
+    width: 10vw;
+    background-image: url("../img/history.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 #containerHeader {
     display: flex;
     flex-direction: row;
@@ -35,6 +56,7 @@ body {
     display: flex;
     justify-content: center;
     height: 10vh;
+    margin-top: 5px;
 }
 #strHead {
     background-image: url('../img/Strength_Tag.png');
@@ -91,6 +113,7 @@ body {
 }
 #menu {
     width: 50vw;
+    height: 5vh;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -103,6 +126,7 @@ body {
     align-content: center;
     justify-content: center;
     border-radius: 15%;
+    border: 4px solid black;
 }
 .picks {
     width: 75px;

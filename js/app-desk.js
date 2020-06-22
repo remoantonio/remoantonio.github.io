@@ -43,9 +43,9 @@ let synArr = [[null]]
 $(() => {
     // Top Page Menu
     $('#headTitle').text('Dota 2 Picker')
-    $('<div>').attr('id', 'assistant').on('click', assistant).appendTo($('#menu')).text('assistant')
-    $('<div>').attr('id', 'home').on('click', home).appendTo($('#menu')).text('home')
-    $('<div>').attr('id', 'drafts').on('click', drafts).appendTo($('#menu')).text('draft')
+    $('<div>').attr('id', 'assistant').on('click', assistant).appendTo($('#menu'))
+    $('<div>').attr('id', 'home').on('click', home).appendTo($('#menu'))
+    $('<div>').attr('id', 'drafts').on('click', drafts).appendTo($('#menu'))
     // Container Page Header
     $('<div>').addClass('header').appendTo($('#containerHeader')).attr('id', 'strHead')
     $('<div>').addClass('header').appendTo($('#containerHeader')).attr('id', 'agiHead')
