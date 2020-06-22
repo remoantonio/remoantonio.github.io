@@ -1,0 +1,22 @@
+{
+  "name": "remo-dota",
+  "version": "1.0.0",
+  "description": "A Dota Synergy Draft Assistant",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remoantonio/remoantonio.github.io.git"
+  },
+  "author": "Remo A. Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remoantonio/remoantonio.github.io/issues"
+  },
+  "homepage": "https://github.com/remoantonio/remoantonio.github.io#readme",
+  "engines": {
+    "node": "v14.x"
+  }
+}
