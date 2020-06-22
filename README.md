@@ -1,4 +1,3 @@
-# remoantonio.github.io
 # Dota 2 Picker
 
 ## Overview
