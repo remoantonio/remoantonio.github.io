@@ -70,11 +70,11 @@ $(() => {
     for (let i = 0; i < heroesArr.length; i++) {
         let img = 'https://hgv-hyperstone.azurewebsites.net/heroes/banner/' + heroesArr[i].name + '.png'
         if (heroesArr[i].primary_attr == 'str') {
-            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id)
+            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#str')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id).css('border', 'none')
         } else if (heroesArr[i].primary_attr == 'agi') {
-            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id)
+            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#agi')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id).css('border', 'none')
         } else if (heroesArr[i].primary_attr == 'int') {
-            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id)
+            $('<div>').attr('id', i).addClass(heroesArr[i].primary_attr).addClass(heroesArr[i].localized_name).appendTo($('#int')).css('background-image', 'url(' + img + ')').on('click', pickUp).attr('heroID', heroesArr[i].id).css('border', 'none')
         }}});
         for (let i = 0; i < 3; i++) {
             $('<div>').attr('id', lanes[i]).appendTo($('#lanes')).addClass('lanes').text(lanes[i]).hide()
@@ -135,7 +135,15 @@ function sorting(location) {
     });
 }
     function pickUp(event) {
+        if (item == undefined) {
+            
+        } else {
+            $(`#${item.attr('id')}`).css('border', 'none')
+        }
         item = $(event.currentTarget)
+        // console.log(item.attr('id'))
+        // $('#2').css('border', '4px solid black')
+        $(`#${item.attr('id')}`).css('border', '3px solid black')
         event.stopPropagation()
         return item
     }
