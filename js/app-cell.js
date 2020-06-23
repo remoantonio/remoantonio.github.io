@@ -143,7 +143,7 @@ function sorting(location) {
         item = $(event.currentTarget)
         // console.log(item.attr('id'))
         // $('#2').css('border', '4px solid black')
-        $(`#${item.attr('id')}`).css('border', '3px solid black')
+        $(`#${item.attr('id')}`).css('border', '3px solid #3aff03')
         event.stopPropagation()
         return item
     }
