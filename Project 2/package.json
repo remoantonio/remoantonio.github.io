@@ -1,5 +1,5 @@
 {
-  "name": "kingsman_auth",
+  "name": "project-2",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -10,12 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.8",
-    "ejs": "^2.5.7",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "express-sessions": "^1.0.6",
-    "method-override": "^2.3.10",
-    "mongoose": "^5.5.3"
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.22"
   }
 }

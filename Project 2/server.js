@@ -1,71 +1,58 @@
-// DEPENDENCIES
+//___________________
+//Dependencies
+//___________________
 const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const session = require('express-session');
-const methodOverride = require('method-override');
-const bcrypt = require('bcrypt');
-const port = 3000;
+const methodOverride  = require('method-override');
+const mongoose = require ('mongoose');
+const app = express ();
+const db = mongoose.connection;
+//___________________
+//Port
+//___________________
+// Allow use of Heroku's port or your own local port, depending on the environment
+const PORT = process.env.PORT || 3000;
+
+//___________________
+//Database
+//___________________
+// How to connect to the database either via heroku or locally
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/'+ 'test';
+
+// Connect to Mongo
+mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
+
+// Error / success
+db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
+db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
+db.on('disconnected', () => console.log('mongo disconnected'));
+
+// open the connection to mongo
+db.on('open' , ()=>{});
+
+//___________________
+//Middleware
+//___________________
+
+//use public folder for static assets
+app.use(express.static('public'));
+
+// populates req.body with parsed info from forms - if no data from forms will return an empty object {}
+app.use(express.urlencoded({ extended: false }));// extended: false - does not allow nested objects in query strings
+app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
+
+//use method override
+app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 
-// MIDDLEWARE
-// body parser middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-// static files middleware
-app.use(express.static('public'))
-app.use(methodOverride('_method'))
-// session
-app.use(session({
-  secret: "feedmeseymour", //some random string
-  resave: false,
-  saveUninitialized: false
-}));
-
-// CONTROLLERS
-// fitting room three
-const roomController = require('./controllers/room.js');
-app.use('/room', roomController);
-const userController = require('./controllers/user.js');
-app.use('/users', userController);
-const sessionsController = require('./controllers/sessions.js');
-app.use('/sessions', sessionsController);
-
-const User = require('./models/users.js')
-
-// GET INDEX
-app.get('/', (req, res) => {
-  console.log(req.session.currentUser)
-  res.render('index.ejs', {currentUser: req.session.currentUser});
+//___________________
+// Routes
+//___________________
+//localhost:3000
+app.get('/' , (req, res) => {
+  res.send('Hello World!');
 });
 
-
-// SEED ROUTE
-// NOTE: Do NOT run this route until AFTER you have a create user route up and running, as well as encryption working!
-const seed = require('./models/seed.js');
-// const User = require('./models/users.js');
-
-app.get('/seedAgents', (req, res) => {
-  // encrypts the given seed passwords
-  seed.forEach((user) => {
-    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
-  });
-  // seeds the data
-  User.create(seed, (err, createdUsers) => {
-    // logs created users
-    console.log(createdUsers);
-    // redirects to index
-    res.redirect('/');
-  });
-});
-
-
-// CONNECTIONS
-app.listen(port, () => {
-  console.log('listening on port: ', port);
-});
-
-mongoose.connect('mongodb://localhost:27017/kingsman', { useNewUrlParser: true });
-mongoose.connection.once('open', () => {
-    console.log('connected to mongo');
-});
+//___________________
+//Listener
+//___________________
+app.listen(PORT, () => console.log( 'Listening on port:', PORT));
